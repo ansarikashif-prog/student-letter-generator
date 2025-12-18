@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react';
 // ===============================
 // COMPONENTS
 // ===============================
+import EMAILS from './config/emails';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import StudentForm from './components/StudentForm';
@@ -111,7 +112,42 @@ const App = () => {
         `Sincerely,\n${studentData.fullName}`
     );
 
-    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    const handleSendMail = () => {
+  if (!studentData || !letterContent) return;
+
+  // Non-blocking log
+  logStudentActivity({
+    studentData,
+    language,
+    letterContent,
+    action: 'send_mail'
+  });
+
+  const subject = encodeURIComponent(
+    'Regarding Non-Declaration of BA (ODL) Examination Result'
+  );
+
+  // IMPORTANT: Mailto body should be plain text
+  const body = encodeURIComponent(
+    letterContent
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/?[^>]+(>|$)/g, '')
+  );
+
+  const to = EMAILS.to.join(',');
+  const cc = EMAILS.cc.join(',');
+  const bcc = EMAILS.bcc.join(',');
+
+  const mailtoLink =
+    `mailto:${to}` +
+    `?cc=${cc}` +
+    `&bcc=${bcc}` +
+    `&subject=${subject}` +
+    `&body=${body}`;
+
+  window.location.href = mailtoLink;
+};
+
   };
 
   // ===============================
