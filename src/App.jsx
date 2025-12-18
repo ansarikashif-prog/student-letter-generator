@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
+import EMAILS from './config/emails';
 
 // ===============================
 // COMPONENTS
 // ===============================
-import EMAILS from './config/emails';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import StudentForm from './components/StudentForm';
@@ -94,28 +94,9 @@ const App = () => {
   };
 
   const handleSendMail = () => {
-    if (!studentData || !letterContent) return;
-
-    // Fire-and-forget log
-    logStudentActivity({
-      studentData,
-      language,
-      letterContent,
-      action: 'send_mail'
-    });
-
-    const subject = encodeURIComponent('Submission of Academic Letter');
-    const body = encodeURIComponent(
-      `Respected Sir/Madam,\n\n` +
-        `I am writing to formally submit the attached academic letter for your kind consideration.\n\n` +
-        `I request you to please review the same at your convenience.\n\n` +
-        `Sincerely,\n${studentData.fullName}`
-    );
-
-    const handleSendMail = () => {
   if (!studentData || !letterContent) return;
 
-  // Non-blocking log
+  // Fire-and-forget log
   logStudentActivity({
     studentData,
     language,
@@ -127,7 +108,7 @@ const App = () => {
     'Regarding Non-Declaration of BA (ODL) Examination Result'
   );
 
-  // IMPORTANT: Mailto body should be plain text
+  // Convert HTML letter to plain text (mailto safe)
   const body = encodeURIComponent(
     letterContent
       .replace(/<br\s*\/?>/gi, '\n')
@@ -148,7 +129,6 @@ const App = () => {
   window.location.href = mailtoLink;
 };
 
-  };
 
   // ===============================
   // RENDER
