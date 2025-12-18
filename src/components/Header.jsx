@@ -1,19 +1,16 @@
-import React from "react";
-import HeaderStats from "./HeaderStats";
+import React from 'react';
 
 /**
  * Header Component
- * - Layout + branding only
- * - NO business logic
+ * Displays the main application title
+ * Fully responsive & semantic
  */
 const Header = () => {
   return (
-    <header className="header">
-      <div className="header-main">
-        {/* existing title / subtitle */}
+    <header className="app-header">
+      <div className="app-header-inner">
+        <h1 className="app-title">Student Letter Generator</h1>
       </div>
-
-      <HeaderStats />
     </header>
   );
 };

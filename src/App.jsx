@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import EMAILS from './config/emails';
 
 // ===============================
 // COMPONENTS
@@ -42,6 +41,7 @@ const App = () => {
   // ===============================
   // HANDLERS
   // ===============================
+
   const handleFormSubmit = (data) => {
     setStudentData(data);
     setLanguage('en');
@@ -103,39 +103,15 @@ const App = () => {
       action: 'send_mail'
     });
 
-    const subject = encodeURIComponent(
-      'Regarding Non-Declaration of BA (ODL) Examination Result'
+    const subject = encodeURIComponent('Submission of Academic Letter');
+    const body = encodeURIComponent(
+      `Respected Sir/Madam,\n\n` +
+        `I am writing to formally submit the attached academic letter for your kind consideration.\n\n` +
+        `I request you to please review the same at your convenience.\n\n` +
+        `Sincerely,\n${studentData.fullName}`
     );
 
-    // Convert content to plain text (mailto safe)
-    const rawBody = letterContent
-      .replace(/<br\s*\/?>/gi, '\n')
-      .replace(/<\/?[^>]+(>|$)/g, '');
-
-    // ⚠️ Mailto length safety (browser limitation)
-    const MAX_BODY_LENGTH = 1800;
-
-    const safeBody =
-      rawBody.length > MAX_BODY_LENGTH
-        ? rawBody.slice(0, MAX_BODY_LENGTH) +
-          '\n\n[Content truncated. Please see attached PDF.]'
-        : rawBody;
-
-    const body = encodeURIComponent(safeBody);
-
-    const to = EMAILS.to.join(',');
-    const cc = EMAILS.cc.join(',');
-    const bcc = EMAILS.bcc.join(',');
-
-    const mailtoLink =
-      `mailto:${to}` +
-      `?cc=${cc}` +
-      `&bcc=${bcc}` +
-      `&subject=${subject}` +
-      `&body=${body}`;
-
-    // Browser-level navigation (expected behavior)
-    window.location.href = mailtoLink;
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
   };
 
   // ===============================
