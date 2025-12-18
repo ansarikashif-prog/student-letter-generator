@@ -1,11 +1,12 @@
-// src/letters/letter.en.js
+/**
+ * src/letters/letter.en.js
+ * English Letter Template
+ * Input: studentData = { fullName, rollNumber, enrollmentNumber, phoneNumber }
+ */
 
-export function getEnglishLetter({
-  fullName,
-  rollNumber,
-  enrollmentNumber,
-  phoneNumber
-}) {
+const englishLetter = ({ fullName, rollNumber, enrollmentNumber, phoneNumber }) => {
+  if (!fullName || !rollNumber || !enrollmentNumber || !phoneNumber) return '';
+
   return `
 To the Examination Controller / CDOE Administration,
 
@@ -37,7 +38,7 @@ Therefore, I respectfully request:
 2) Adequate time for backlog preparation, if applicable.  
 3) Flexibility in assignment submission modes, including online submission where feasible.  
 4) Timely and complete availability of prescribed study material.  
-5) Resolution of technical issues related to the fee submission portal.
+5) Sustainable Resolution of technical issues related to the fee submission portal.
 
 My details are provided below for verification:
 
@@ -51,4 +52,6 @@ I submit this representation with due respect and hope for a prompt and consider
 Sincerely,  
 ${fullName}
 `.trim();
-}
+};
+
+export default englishLetter;
