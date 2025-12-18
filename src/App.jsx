@@ -42,7 +42,6 @@ const App = () => {
   // ===============================
   // HANDLERS
   // ===============================
-
   const handleFormSubmit = (data) => {
     setStudentData(data);
     setLanguage('en');
@@ -94,41 +93,50 @@ const App = () => {
   };
 
   const handleSendMail = () => {
-  if (!studentData || !letterContent) return;
+    if (!studentData || !letterContent) return;
 
-  // Fire-and-forget log
-  logStudentActivity({
-    studentData,
-    language,
-    letterContent,
-    action: 'send_mail'
-  });
+    // Fire-and-forget log
+    logStudentActivity({
+      studentData,
+      language,
+      letterContent,
+      action: 'send_mail'
+    });
 
-  const subject = encodeURIComponent(
-    'Regarding Non-Declaration of BA (ODL) Examination Result'
-  );
+    const subject = encodeURIComponent(
+      'Regarding Non-Declaration of BA (ODL) Examination Result'
+    );
 
-  // Convert HTML letter to plain text (mailto safe)
-  const body = encodeURIComponent(
-    letterContent
+    // Convert content to plain text (mailto safe)
+    const rawBody = letterContent
       .replace(/<br\s*\/?>/gi, '\n')
-      .replace(/<\/?[^>]+(>|$)/g, '')
-  );
+      .replace(/<\/?[^>]+(>|$)/g, '');
 
-  const to = EMAILS.to.join(',');
-  const cc = EMAILS.cc.join(',');
-  const bcc = EMAILS.bcc.join(',');
+    // ⚠️ Mailto length safety (browser limitation)
+    const MAX_BODY_LENGTH = 1800;
 
-  const mailtoLink =
-    `mailto:${to}` +
-    `?cc=${cc}` +
-    `&bcc=${bcc}` +
-    `&subject=${subject}` +
-    `&body=${body}`;
+    const safeBody =
+      rawBody.length > MAX_BODY_LENGTH
+        ? rawBody.slice(0, MAX_BODY_LENGTH) +
+          '\n\n[Content truncated. Please see attached PDF.]'
+        : rawBody;
 
-  window.location.href = mailtoLink;
-};
+    const body = encodeURIComponent(safeBody);
 
+    const to = EMAILS.to.join(',');
+    const cc = EMAILS.cc.join(',');
+    const bcc = EMAILS.bcc.join(',');
+
+    const mailtoLink =
+      `mailto:${to}` +
+      `?cc=${cc}` +
+      `&bcc=${bcc}` +
+      `&subject=${subject}` +
+      `&body=${body}`;
+
+    // Browser-level navigation (expected behavior)
+    window.location.href = mailtoLink;
+  };
 
   // ===============================
   // RENDER
