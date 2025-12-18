@@ -1,4 +1,6 @@
 import React from 'react';
+import HeaderStats from './HeaderStats';
+
 
 /**
  * Header Component
@@ -7,12 +9,16 @@ import React from 'react';
  */
 const Header = () => {
   return (
-    <header className="app-header">
-      <div className="app-header-inner">
-        <h1 className="app-title">Student Letter Generator</h1>
-      </div>
-    </header>
+    <header className="header">
+  <div className="header-main">
+    {/* existing title / subtitle */}
+  </div>
+
+  <HeaderStats />
+</header>
+
   );
 };
+const daysElapsed = daysSinceExam(EXAM_DATE);
 
 export default Header;
