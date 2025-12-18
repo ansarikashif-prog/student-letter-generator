@@ -1,36 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { getDaysSinceExam } from '../utils/dateUtils';
-import { getSubmissionCount } from '../firebase/statsService';
+import { daysSinceExam } from "../utils/dateUtils";
+import { getSubmissionCount } from "../firebase/statsService";
 
 const HeaderStats = () => {
-  const [days, setDays] = useState(getDaysSinceExam());
+  const [days, setDays] = useState(daysSinceExam());
   const [total, setTotal] = useState(null);
 
-  // Days since exam (update once per hour)
+  // Update days since exam (hourly)
   useEffect(() => {
     const interval = setInterval(() => {
-      setDays(getDaysSinceExam());
+      setDays(daysSinceExam());
     }, 1000 * 60 * 60);
 
     return () => clearInterval(interval);
   }, []);
 
-  // Total submissions (realtime or one-time)
+  // Total submissions
   useEffect(() => {
     const unsubscribe = getSubmissionCount(setTotal);
     return () => {
-      if (typeof unsubscribe === 'function') unsubscribe();
+      if (typeof unsubscribe === "function") unsubscribe();
     };
   }, []);
 
   return (
     <div className="header-stats">
       <div className="badge">
-        🗓️ Days since exam: {days}
+        Days since exam: {days}
       </div>
 
       <div className="badge">
-        Total submissions: {total ?? '—'}
+        Total submissions: {total ?? "—"}
       </div>
     </div>
   );

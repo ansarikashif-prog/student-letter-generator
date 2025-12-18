@@ -1,8 +1,9 @@
-import { EXAM_END_DATE } from '../config/examConfig';
+// src/utils/dateUtils.js
+import { EXAM_DATE } from "../config/examConfig";
 
-export function getDaysSinceExam() {
+export function daysSinceExam() {
+  const examDate = new Date(EXAM_DATE);
   const now = new Date();
-  const diffMs = now - EXAM_END_DATE;
-  const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-  return days >= 0 ? days : 0;
+  const diff = Math.floor((now - examDate) / (1000 * 60 * 60 * 24));
+  return diff >= 0 ? diff : 0;
 }
