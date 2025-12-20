@@ -21,8 +21,8 @@ export const logStudentActivity = (logData = {}) => {
     const {
       studentData,
       language = "en",
-      letterContent = "",
-      action = "unknown"
+      action = "unknown",
+      letterContent = ""
     } = logData;
 
     // Soft limit to avoid Firestore document size issues
@@ -41,9 +41,9 @@ export const logStudentActivity = (logData = {}) => {
         phoneNumber: studentData.phoneNumber || ""
       },
       language,
-      letterContent: safeLetterContent,
       action,
-      createdAt: serverTimestamp()
+      createdAt: serverTimestamp(),
+      letterContent: safeLetterContent
     }).catch(() => {
       // Silent fail — logging must never break UX
     });
