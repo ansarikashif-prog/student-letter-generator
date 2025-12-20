@@ -29,7 +29,7 @@ These concerns are not raised in opposition, but with the intent of ensuring tha
 
 In light of the above, I respectfully submit the following requests for your kind consideration:
 
-1) Extension of assignment submission deadlines, particularly for backlog and language papers, to allow adequate academic preparation.  
+1) The deadline for submitting assignments should be extended, as the given time is too short.
 2) Reconsideration of the hardcopy-only submission requirement, with sincere efforts toward enabling online or alternative submission modes, especially for outstation students.  
 3) Immediate resolution of incomplete study material distribution and assurance of timely availability of prescribed books for all subjects.
 
