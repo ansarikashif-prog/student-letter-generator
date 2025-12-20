@@ -11,7 +11,6 @@ const Header = () => {
       <div className="app-header-inner">
         <h1 className="app-title">Student Academic Support Letter Generator</h1>
         <p className="app-subtitle">
-          For assignment-related concerns after result declaration
         </p>
       </div>
     </header>

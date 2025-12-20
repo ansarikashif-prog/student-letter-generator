@@ -80,7 +80,7 @@ const StudentForm = ({ onSubmit }) => {
             type="text"
             value={formData.fullName}
             onChange={handleChange}
-            placeholder="Enter full name"
+            placeholder="e.g. Zainab"
             required
             aria-invalid={Boolean(errors.fullName)}
             aria-describedby={errors.fullName ? 'fullName-error' : undefined}
@@ -101,7 +101,7 @@ const StudentForm = ({ onSubmit }) => {
             type="text"
             value={formData.rollNumber}
             onChange={handleChange}
-            placeholder="Enter roll number"
+            placeholder="e.g. D23BA0000"
             required
             aria-invalid={Boolean(errors.rollNumber)}
             aria-describedby={errors.rollNumber ? 'rollNumber-error' : undefined}
@@ -122,7 +122,7 @@ const StudentForm = ({ onSubmit }) => {
             type="text"
             value={formData.enrollmentNumber}
             onChange={handleChange}
-            placeholder="Enter enrollment number"
+            placeholder="e.g. 23-123456"
             required
             aria-invalid={Boolean(errors.enrollmentNumber)}
             aria-describedby={

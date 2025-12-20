@@ -55,7 +55,7 @@ const FloatingActions = ({
           aria-label="Download assignment letter PDF"
           disabled={isGenerating}
         >
-          {isGenerating ? 'Generating…' : 'Download Letter PDF'}
+          {isGenerating ? 'Generating…' : 'Download PDF'}
         </button>
 
         <button
@@ -64,7 +64,7 @@ const FloatingActions = ({
           onClick={onSendMail}
           aria-label="Send assignment-related request email"
         >
-          Send Assignment Request
+          Send Request
         </button>
       </div>
 
