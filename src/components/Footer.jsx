@@ -2,7 +2,7 @@ import React from 'react';
 
 /**
  * Footer Component
- * Displays copyright info dynamically
+ * Displays contextual copyright information
  */
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -11,7 +11,8 @@ const Footer = () => {
     <footer className="app-footer">
       <div className="app-footer-inner">
         <p>
-          © {currentYear} Student Letter Generator. All rights reserved.
+          © {currentYear} Student Letter Generator · Supporting students during
+          post-result academic processes.
         </p>
       </div>
     </footer>

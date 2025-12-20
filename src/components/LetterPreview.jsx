@@ -7,13 +7,20 @@ import React, { useEffect, useRef } from 'react';
  */
 const LetterPreview = ({ content, onChange }) => {
   const editableRef = useRef(null);
+  const isUserEditingRef = useRef(false);
 
   // ===============================
   // SYNC CONTENT INTO EDITABLE AREA
   // ===============================
   useEffect(() => {
-    if (editableRef.current && editableRef.current.innerText !== content) {
-      editableRef.current.innerText = content;
+    const el = editableRef.current;
+    if (!el) return;
+
+    // Avoid overwriting while user is typing
+    if (isUserEditingRef.current) return;
+
+    if (el.innerText !== content) {
+      el.innerText = content;
     }
   }, [content]);
 
@@ -23,9 +30,15 @@ const LetterPreview = ({ content, onChange }) => {
   const handleInput = () => {
     if (!editableRef.current) return;
 
-    // Maintain line breaks using innerText (plain text)
+    isUserEditingRef.current = true;
+
     const updatedText = editableRef.current.innerText;
     onChange(updatedText);
+
+    // Reset flag after React state sync
+    queueMicrotask(() => {
+      isUserEditingRef.current = false;
+    });
   };
 
   // ===============================

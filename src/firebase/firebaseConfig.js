@@ -19,28 +19,35 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-
 // ===============================
 // INITIALIZE FIREBASE APP (SAFE)
 // ===============================
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
 // ===============================
-// ANALYTICS (BROWSER ONLY)
+// ANALYTICS (BROWSER ONLY, SAFE ACCESS)
 // ===============================
-let analytics = null;
+let analyticsInstance = null;
 
-if (typeof window !== "undefined") {
-  isSupported()
-    .then((supported) => {
-      if (supported) {
-        analytics = getAnalytics(app);
-      }
-    })
-    .catch(() => {
-      analytics = null;
-    });
-}
+const initAnalytics = async () => {
+  if (typeof window === "undefined") return null;
+
+  try {
+    const supported = await isSupported();
+    if (!supported) return null;
+
+    analyticsInstance = getAnalytics(app);
+    return analyticsInstance;
+  } catch {
+    return null;
+  }
+};
+
+// Initialize analytics non-blocking
+initAnalytics();
+
+// Getter ensures safe access
+const getAnalyticsInstance = () => analyticsInstance;
 
 // ===============================
 // AUTH & FIRESTORE
@@ -51,4 +58,4 @@ const db = getFirestore(app);
 // ===============================
 // EXPORTS
 // ===============================
-export { app, analytics, auth, db };
+export { app, auth, db, getAnalyticsInstance };

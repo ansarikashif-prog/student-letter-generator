@@ -2,7 +2,7 @@
 // FIRESTORE LOGGING SERVICE
 // ===============================
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { auth, db } from './firebaseConfig';
+import { db } from "./firebaseConfig";
 
 /**
  * Log student activity to Firestore
@@ -25,6 +25,13 @@ export const logStudentActivity = (logData = {}) => {
       action = "unknown"
     } = logData;
 
+    // Soft limit to avoid Firestore document size issues
+    const MAX_CONTENT_LENGTH = 5000;
+    const safeLetterContent =
+      letterContent.length > MAX_CONTENT_LENGTH
+        ? letterContent.slice(0, MAX_CONTENT_LENGTH)
+        : letterContent;
+
     // Fire-and-forget logging
     addDoc(collection(db, "studentLogs"), {
       student: {
@@ -34,7 +41,7 @@ export const logStudentActivity = (logData = {}) => {
         phoneNumber: studentData.phoneNumber || ""
       },
       language,
-      letterContent,
+      letterContent: safeLetterContent,
       action,
       createdAt: serverTimestamp()
     }).catch(() => {

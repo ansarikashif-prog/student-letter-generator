@@ -41,7 +41,6 @@ const App = () => {
   // ===============================
   // HANDLERS
   // ===============================
-
   const handleFormSubmit = (data) => {
     setStudentData(data);
     setLanguage('en');
@@ -49,9 +48,7 @@ const App = () => {
     setIsSubmitted(true);
 
     setTimeout(() => {
-      if (previewRef.current) {
-        scrollToElement(previewRef.current);
-      }
+      scrollToElement(previewRef);
     }, 100);
   };
 
@@ -66,19 +63,17 @@ const App = () => {
     );
   };
 
-  const handleDownloadPDF = async () => {
+  const handleDownloadPDF = () => {
     if (!studentData || !letterContent || isGeneratingPDF) return;
 
     setIsGeneratingPDF(true);
 
     try {
-      await generatePDF({
+      generatePDF({
         studentData,
-        letterContent,
-        language
+        letterContent
       });
 
-      // Non-blocking log
       logStudentActivity({
         studentData,
         language,
@@ -95,7 +90,6 @@ const App = () => {
   const handleSendMail = () => {
     if (!studentData || !letterContent) return;
 
-    // Fire-and-forget log
     logStudentActivity({
       studentData,
       language,
@@ -103,15 +97,28 @@ const App = () => {
       action: 'send_mail'
     });
 
-    const subject = encodeURIComponent('Submission of Academic Letter');
+    const subject = encodeURIComponent(
+      'Submission of Academic Representation'
+    );
+
     const body = encodeURIComponent(
       `Respected Sir/Madam,\n\n` +
-        `I am writing to formally submit the attached academic letter for your kind consideration.\n\n` +
-        `I request you to please review the same at your convenience.\n\n` +
+        `I am submitting the attached academic representation for your kind consideration.\n\n` +
+        `Thank you for your time and attention.\n\n` +
         `Sincerely,\n${studentData.fullName}`
     );
 
-    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    const to = encodeURIComponent(
+  'mrizvi@jmi.ac.in,c.smoinuddin@jmi.ac.in'
+);
+
+const bcc = encodeURIComponent(
+  'vc@jmi.in'
+);
+
+window.location.href =
+  `mailto:${to}?bcc=${bcc}&subject=${subject}&body=${body}`;
+
   };
 
   // ===============================

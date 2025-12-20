@@ -1,43 +1,46 @@
 import jsPDF from "jspdf";
 
 /**
- * Generate PDF directly from text (no html2canvas)
- * Unicode-safe, multi-page, includes timestamp
+ * Generate PDF directly from plain text
+ * Multi-page, safe margins, production hardened
  *
- * @param {Object} studentData - { fullName, rollNumber, enrollmentNumber, phoneNumber }
- * @param {string} letterContent - Full letter text
+ * @param {Object} params
+ * @param {Object} params.studentData - { fullName, rollNumber, enrollmentNumber, phoneNumber }
+ * @param {string} params.letterContent - Full letter text
  */
 export const generatePDF = ({ studentData, letterContent }) => {
   if (!studentData || !letterContent) {
-    console.warn("Missing student data or letter content");
     return;
   }
 
-  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const doc = new jsPDF({
+    unit: "pt",
+    format: "a4"
+  });
+
   const margin = 50;
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
-  const lineHeight = 16; // spacing between lines
+  const lineHeight = 16;
   let y = margin;
 
   // ===============================
-  // SELECT FONT
+  // FONT (SAFE DEFAULT)
   // ===============================
-  // Use a Devanagari font if Hindi detected
-  const font = /[\u0900-\u097F]/.test(letterContent)
-    ? "Mangal"
-    : "Times";
-  doc.setFont(font);
+  // NOTE:
+  // jsPDF default fonts do NOT support full Unicode (Hindi).
+  // We intentionally use a stable built-in font to avoid corrupted PDFs.
+  doc.setFont("Times");
   doc.setFontSize(12);
+  doc.setTextColor(17, 24, 39);
 
   // ===============================
-  // HEADER
+  // HEADER BLOCK
   // ===============================
-  const header = `
-Student Name: ${studentData.fullName}
-Roll Number: ${studentData.rollNumber}
-Enrollment Number: ${studentData.enrollmentNumber}
-Phone: ${studentData.phoneNumber}
+  const header = `Student Name: ${studentData.fullName || ""}
+Roll Number: ${studentData.rollNumber || ""}
+Enrollment Number: ${studentData.enrollmentNumber || ""}
+Phone: ${studentData.phoneNumber || ""}
 
 --------------------------------------------------
 `;
@@ -45,9 +48,12 @@ Phone: ${studentData.phoneNumber}
   const fullText = header + letterContent;
 
   // ===============================
-  // SPLIT TEXT INTO LINES
+  // TEXT FLOW (AUTO PAGINATION)
   // ===============================
-  const lines = doc.splitTextToSize(fullText, pageWidth - margin * 2);
+  const lines = doc.splitTextToSize(
+    fullText,
+    pageWidth - margin * 2
+  );
 
   lines.forEach((line) => {
     if (y + lineHeight > pageHeight - margin) {
@@ -59,21 +65,30 @@ Phone: ${studentData.phoneNumber}
   });
 
   // ===============================
-  // TIMESTAMP
+  // FOOTER TIMESTAMP
   // ===============================
-  const timestamp = new Date().toLocaleString();
+  const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);
   const totalPages = doc.getNumberOfPages();
 
   for (let i = 1; i <= totalPages; i++) {
     doc.setPage(i);
     doc.setFontSize(9);
-    doc.setTextColor(107, 114, 128); // gray
-    doc.text(`Generated on: ${timestamp}`, margin, pageHeight - 20);
+    doc.setTextColor(107, 114, 128);
+    doc.text(
+      `Generated on: ${timestamp}`,
+      margin,
+      pageHeight - 20
+    );
   }
 
   // ===============================
-  // SAVE PDF
+  // SAFE FILE NAME
   // ===============================
-  const safeName = studentData.fullName.replace(/[^a-zA-Z0-9]/g, "_").toLowerCase();
+  const baseName =
+    studentData.fullName?.trim() || "student";
+  const safeName = baseName
+    .replace(/[^a-zA-Z0-9]/g, "_")
+    .toLowerCase();
+
   doc.save(`letter_${safeName}.pdf`);
 };

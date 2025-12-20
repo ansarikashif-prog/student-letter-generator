@@ -1,6 +1,7 @@
 /**
  * src/letters/letter.en.js
  * English Letter Template
+ * Context: Post-result academic support & assignment-related concerns
  * Input: studentData = { fullName, rollNumber, enrollmentNumber, phoneNumber }
  */
 
@@ -8,48 +9,40 @@ const englishLetter = ({ fullName, rollNumber, enrollmentNumber, phoneNumber }) 
   if (!fullName || !rollNumber || !enrollmentNumber || !phoneNumber) return '';
 
   return `
-To the Examination Controller / CDOE Administration,
+Respected Sir,
 
-I am writing this letter to formally place on record my academic experience as a student of the BA (ODL) programme under the Centre for Distance and Online Education, Jamia Millia Islamia. I chose this programme with the expectation that, as a reputed Central University, the institution would follow a disciplined academic calendar and ensure timely academic support as outlined in the prospectus. Unfortunately, my experience from the first year onwards has been otherwise.
+I, a student of the BA (ODL) programme under the Centre for Distance and Online Education, Jamia Millia Islamia, write this letter with due respect to formally place my academic concerns on record.
 
-During my first year, there were extended periods where no clear information was shared by the Centre. For several months, I remained uncertain about academic timelines and the availability of study material. I repeatedly contacted the Centre through emails and personal visits regarding books. The responses were limited to assurances such as “you will be informed,” but no concrete information was provided. Eventually, study material was distributed only shortly before examinations, leaving very little time for preparation. As a result, academic performance was severely impacted. In the 2023 batch, which consisted of more than 2000 students, approximately 1300 students failed in one or more subjects. This reflects systemic shortcomings rather than individual incapability. The first year itself stretched to nearly 15–17 months.
+At the outset, I would like to sincerely acknowledge and express my gratitude for the declaration of the Second Year BA (ODL) results on 18 December 2025. After an extended period of uncertainty and repeated follow-ups by students, the declaration of results has finally provided clarity regarding subject-wise academic status, including pass and backlog outcomes.
 
-The delay in the first year led to a compressed and academically stressful second year, which was completed within approximately 7–8 months. Assignments were announced suddenly, followed by examinations without adequate preparation time. During this period, I had to make multiple visits to the Centre to collect books, only to be informed repeatedly that the material was unavailable. In some cases, books were not provided even until after examinations, making structured academic preparation nearly impossible.
+While the declaration of results is appreciated, it has simultaneously brought to light a set of urgent academic challenges, particularly concerning assignments and backlog preparation, which now require immediate and thoughtful attention.
 
-Despite opting for the offline mode at the time of admission, both the first and second years were largely conducted online. This directly contradicts the option provided during admission. If students are expected to adhere strictly to institutional rules, the system must also adhere to its commitments.
+Over the past two academic years, the BA (ODL) programme has not followed a consistent academic timeline. The first year extended over approximately 15–17 months, while the second year was completed within a highly compressed span of about 7–8 months. Due to this irregularity, students were unable to anticipate academic milestones in advance and were neither academically nor mentally prepared for sudden assignment announcements.
 
-Throughout this period, there was a serious lack of coordination and communication. Official notices were either delayed or absent, and email responses were often late or not received at all. After the completion of second-year examinations on 24 August 2025, no official update regarding result declaration has been communicated.
+Recently, with the announcement of offline classes, students were unexpectedly informed that assignments for language papers were to be submitted within a very short timeframe. This abrupt communication has left students with insufficient time even to plan, let alone prepare academically sound submissions.
 
-I was informed that the results had been forwarded to the Examination Controller in October. However, approaching the Examination Controller’s office has not provided any resolution, with students being redirected repeatedly without clarity or accountability.
+The situation is further aggravated by the requirement of hardcopy submission. For students residing outside Delhi, this poses a serious and often impractical challenge. While attendance in offline classes may remain optional for outstation students without direct academic loss, assignment submission through physical means places them at a clear disadvantage. In many cases, timely hardcopy submission is neither logistically feasible nor financially sustainable.
 
-The academic impact of this prolonged uncertainty has been serious. Delayed study material, irregular classes, and lack of structured academic support have weakened foundational concepts and negatively affected academic outcomes.
+In addition to this, several students have still not received complete prescribed study material for subjects such as BEG-04, BEG-05, BHD-04, and BHD-05 due to stock unavailability. The absence of essential books, combined with limited preparation time, makes it academically unreasonable to expect quality assignment submissions within strict deadlines.
 
-In the third year, some improvement is visible. Books are being provided comparatively earlier, and offline classes are being conducted for four out of six subjects. However, issues still persist. Several students have not received complete course material for subjects such as BEG-04, BEG-05, BHD-04, and BHD-05 due to stock unavailability. Assignments are announced with very short timelines and require hardcopy submission, which creates serious difficulties for students residing outside Delhi.
+These concerns are not raised in opposition, but with the intent of ensuring that the purpose of result declaration is meaningfully fulfilled by enabling students to address their academic shortcomings in a fair, structured, and humane manner.
 
-Another major concern is the fee submission process. The Jamia fee portal has recurring technical issues. Student records are often incorrect or missing, and even after successful payment, fee slips are sometimes not generated. Despite confirmation emails, students are forced to make repeated visits for verification, causing unnecessary stress.
+In light of the above, I respectfully submit the following requests for your kind consideration:
 
-These concerns are raised not to revisit past difficulties, but to highlight systemic issues that require correction so that future students do not face similar disruptions.
+1) Extension of assignment submission deadlines, particularly for backlog and language papers, to allow adequate academic preparation.  
+2) Reconsideration of the hardcopy-only submission requirement, with sincere efforts toward enabling online or alternative submission modes, especially for outstation students.  
+3) Immediate resolution of incomplete study material distribution and assurance of timely availability of prescribed books for all subjects.
 
-At present, my most serious concern is the non-declaration of my Second Year BA (ODL) result. Without the result, I am unable to assess my academic standing or plan my next steps.
-
-Therefore, I respectfully request:
-
-1) Immediate declaration of my Second Year BA (ODL) result, or a clearly notified and reliable timeline.  
-2) Adequate time for backlog preparation, if applicable.  
-3) Flexibility in assignment submission modes, including online submission where feasible.  
-4) Timely and complete availability of prescribed study material.  
-5) Sustainable Resolution of technical issues related to the fee submission portal.
-
-My details are provided below for verification:
+My details are provided below for your reference:
 
 - Name: ${fullName}  
 - Roll Number: ${rollNumber}  
 - Enrollment Number: ${enrollmentNumber}  
-- Contact: ${phoneNumber}  
+- Contact Number: ${phoneNumber}  
 
-I submit this representation with due respect and hope for a prompt and considerate response.
+I submit this representation with due respect and sincere hope that these concerns will be examined sympathetically and addressed in the best academic interest of distance learning students.
 
-Sincerely,  
+Yours sincerely,  
 ${fullName}
 `.trim();
 };

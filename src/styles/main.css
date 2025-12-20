@@ -36,7 +36,7 @@ button {
 .app-container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 24px 16px 120px; /* bottom padding for floating buttons */
+  padding: 24px 16px 120px; /* space for floating buttons */
 }
 
 /* =========================================================
@@ -192,14 +192,13 @@ button {
   line-height: 1.75;
   color: #111827;
   text-align: justify;
-  white-space: pre-wrap; /* VERY IMPORTANT */
+  white-space: pre-wrap; /* critical for template strings */
 }
 
 .letter-body:focus {
   outline: 2px solid #2563eb;
   outline-offset: 4px;
 }
-
 
 /* =========================================================
    FLOATING ACTION BUTTONS
@@ -222,7 +221,6 @@ button {
   pointer-events: auto;
 }
 
-/* Actual button class used in JSX */
 .action-btn {
   pointer-events: auto;
   background-color: #111827;
@@ -233,15 +231,14 @@ button {
   font-size: 0.9rem;
   font-weight: 500;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 
-/* Download */
 .action-btn.download {
   background-color: #111827;
 }
 
-/* Mail */
 .action-btn.mail {
   background-color: #2563eb;
 }
@@ -251,6 +248,19 @@ button {
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
 }
 
+.action-btn.download:hover {
+  background-color: #030712;
+}
+
+.action-btn.mail:hover {
+  background-color: #1d4ed8;
+}
+
+.action-btn:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 3px;
+}
+
 .action-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -258,7 +268,9 @@ button {
   box-shadow: none;
 }
 
-
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 @media (max-width: 640px) {
   .letter-preview {
     padding: 28px 20px;
@@ -273,4 +285,3 @@ button {
     font-size: 0.85rem;
   }
 }
-

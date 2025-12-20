@@ -1,6 +1,6 @@
 /**
- * Format a Date object into a readable string
- * Example: 17 Dec 2025, 12:30 PM
+ * Format a Date into a human-readable string
+ * Example: 18 Dec 2025, 12:30 PM
  *
  * @param {Date | string | number} dateInput
  * @param {string} locale - default 'en-IN'
@@ -11,9 +11,8 @@ export const formatDate = (dateInput, locale = 'en-IN') => {
 
   const date = new Date(dateInput);
 
-  // Guard against Invalid Date
-  if (isNaN(date.getTime())) {
-    console.warn('Invalid date provided to formatDate:', dateInput);
+  // Guard against invalid date input
+  if (Number.isNaN(date.getTime())) {
     return '';
   }
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 /**
  * FloatingActions Component
- * Fly → dock buttons for Download & Send Mail
+ * Fly → dock buttons for Download & Send Assignment Request
  */
 const FloatingActions = ({
   onDownload,
@@ -46,25 +46,25 @@ const FloatingActions = ({
       {/* Floating / Fixed Actions */}
       <div
         className={`floating-actions ${isDocked ? 'docked' : 'floating'}`}
-        aria-label="Letter actions"
+        aria-label="Assignment actions"
       >
         <button
           type="button"
           className="action-btn download"
           onClick={onDownload}
-          aria-label="Download PDF"
+          aria-label="Download assignment letter PDF"
           disabled={isGenerating}
         >
-          {isGenerating ? 'Generating…' : 'Download PDF'}
+          {isGenerating ? 'Generating…' : 'Download Letter PDF'}
         </button>
 
         <button
           type="button"
           className="action-btn mail"
           onClick={onSendMail}
-          aria-label="Send email"
+          aria-label="Send assignment-related request email"
         >
-          Send Mail
+          Send Assignment Request
         </button>
       </div>
 

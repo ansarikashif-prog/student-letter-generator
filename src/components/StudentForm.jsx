@@ -12,7 +12,7 @@ const initialFormState = {
 
 /**
  * StudentForm Component
- * Collects student details for letter generation
+ * Collects student details for assignment-related letter generation
  */
 const StudentForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState(initialFormState);
@@ -24,10 +24,17 @@ const StudentForm = ({ onSubmit }) => {
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required.';
-    if (!formData.rollNumber.trim()) newErrors.rollNumber = 'Roll number is required.';
-    if (!formData.enrollmentNumber.trim()) newErrors.enrollmentNumber = 'Enrollment number is required.';
-    if (!/^\d{10}$/.test(formData.phoneNumber)) newErrors.phoneNumber = 'Phone number must be exactly 10 digits.';
+    if (!formData.fullName.trim())
+      newErrors.fullName = 'Full name is required.';
+
+    if (!formData.rollNumber.trim())
+      newErrors.rollNumber = 'Roll number is required.';
+
+    if (!formData.enrollmentNumber.trim())
+      newErrors.enrollmentNumber = 'Enrollment number is required.';
+
+    if (!/^\d{10}$/.test(formData.phoneNumber))
+      newErrors.phoneNumber = 'Phone number must be exactly 10 digits.';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -45,7 +52,6 @@ const StudentForm = ({ onSubmit }) => {
     e.preventDefault();
     if (!validate()) return;
 
-    // Pass clean data to parent
     onSubmit({
       fullName: formData.fullName.trim(),
       rollNumber: formData.rollNumber.trim(),
@@ -59,7 +65,10 @@ const StudentForm = ({ onSubmit }) => {
   // ===============================
   return (
     <section className="form-card">
-      <h2 className="form-title">Student Details</h2>
+      <h2 className="form-title">Student Information</h2>
+      <p className="form-description">
+        Details required to generate an assignment-related academic request letter.
+      </p>
 
       <form onSubmit={handleSubmit} noValidate>
         {/* Full Name */}
@@ -74,8 +83,13 @@ const StudentForm = ({ onSubmit }) => {
             placeholder="Enter full name"
             required
             aria-invalid={Boolean(errors.fullName)}
+            aria-describedby={errors.fullName ? 'fullName-error' : undefined}
           />
-          {errors.fullName && <div className="form-error">{errors.fullName}</div>}
+          {errors.fullName && (
+            <div id="fullName-error" className="form-error">
+              {errors.fullName}
+            </div>
+          )}
         </div>
 
         {/* Roll Number */}
@@ -90,8 +104,13 @@ const StudentForm = ({ onSubmit }) => {
             placeholder="Enter roll number"
             required
             aria-invalid={Boolean(errors.rollNumber)}
+            aria-describedby={errors.rollNumber ? 'rollNumber-error' : undefined}
           />
-          {errors.rollNumber && <div className="form-error">{errors.rollNumber}</div>}
+          {errors.rollNumber && (
+            <div id="rollNumber-error" className="form-error">
+              {errors.rollNumber}
+            </div>
+          )}
         </div>
 
         {/* Enrollment Number */}
@@ -106,8 +125,15 @@ const StudentForm = ({ onSubmit }) => {
             placeholder="Enter enrollment number"
             required
             aria-invalid={Boolean(errors.enrollmentNumber)}
+            aria-describedby={
+              errors.enrollmentNumber ? 'enrollmentNumber-error' : undefined
+            }
           />
-          {errors.enrollmentNumber && <div className="form-error">{errors.enrollmentNumber}</div>}
+          {errors.enrollmentNumber && (
+            <div id="enrollmentNumber-error" className="form-error">
+              {errors.enrollmentNumber}
+            </div>
+          )}
         </div>
 
         {/* Phone Number */}
@@ -124,13 +150,20 @@ const StudentForm = ({ onSubmit }) => {
             pattern="[0-9]{10}"
             required
             aria-invalid={Boolean(errors.phoneNumber)}
+            aria-describedby={errors.phoneNumber ? 'phoneNumber-error' : undefined}
           />
-          {errors.phoneNumber && <div className="form-error">{errors.phoneNumber}</div>}
+          {errors.phoneNumber && (
+            <div id="phoneNumber-error" className="form-error">
+              {errors.phoneNumber}
+            </div>
+          )}
         </div>
 
         {/* Submit */}
         <div className="form-submit">
-          <button type="submit">Generate Preview</button>
+          <button type="submit">
+            Generate Assignment Letter Preview
+          </button>
         </div>
       </form>
     </section>
