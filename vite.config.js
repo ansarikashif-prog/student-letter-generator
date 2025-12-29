@@ -21,6 +21,6 @@ export default defineConfig({
     }
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'jspdf'] // ❌ Removed 'firebase'
+    include: ['react', 'react-dom', 'jspdf']
   }
 });
